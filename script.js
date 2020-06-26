@@ -3,7 +3,7 @@ $(document).ready(function() {
 
 var timeNowDisplay; 
 var timeAndDateNow; 
-var clockTime;
+var clockTime; 
 
 
 updateTime();
@@ -23,12 +23,18 @@ setInterval(updateTime, 1000);
 function compareTime () {
     $(".hour").each(function() {
         var blockTime = $(this).html()
-        if (clockTime.isAfter(blockTime)) {
-        $(this).addClass("hide"); 
+        var after  = moment(clockTime, "hh a").isAfter(moment(blockTime, "hh a"));
+        var future = moment(clockTime, "hh a").isBefore(moment(blockTime, "hha a")); 
+        if (after === true) {
+            $(this).addClass("past"); 
         }
-
+        else if (future === true) {
+            $(this).addClass("future"); 
+        }
+        else {
+            $(this).addClass("present");
         
-
+        }
     })
 }
 
