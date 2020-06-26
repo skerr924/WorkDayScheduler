@@ -2,25 +2,35 @@
 $(document).ready(function() {
 
 var timeNowDisplay; 
-var timeNow; 
-var currentHour; 
+var timeAndDateNow; 
+var clockTime;
+
 
 updateTime();
 // alreadyPassed();
-
+compareTime();
 
 //function to continuously update the date and time 
 function updateTime () {
-    timeNowDisplay = $("#currentDay"); //option 1 
-    timeNow = moment().format('MMMM Do YYYY, h:mm a');
-    timeNowDisplay.text("The time now is: " + timeNow); 
-    currentHour = moment().format('h');
-    console.log(currentHour);
+    timeNowDisplay = $("#currentDay"); 
+    timeAndDateNow = moment().format('MMMM Do YYYY, h:mm a');
+    clockTime = moment().format('h:mm a');
+    timeNowDisplay.text("The time now is: " + timeAndDateNow); 
 }
 setInterval(updateTime, 1000);
 
-// function alreadyPassed (){
 
-// }
+function compareTime () {
+    $(".hour").each(function() {
+        var blockTime = $(this).html()
+        if (clockTime.isAfter(blockTime)) {
+        $(this).addClass("hide"); 
+        }
+
+        
+
+    })
+}
+
 
 });
