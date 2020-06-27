@@ -3,7 +3,6 @@ $(document).ready(function() {
 
 var timeNowDisplay; 
 var timeAndDateNow; 
-var events = [ ];
 var buttonHour; 
 
 
@@ -68,10 +67,9 @@ function storeEvent() {
 //get stored events from local storage 
 function getStoredEvents(){
     var storedEvents = JSON.parse(localStorage.getItem("events")); 
-    if (storedEvents !== null){
-        events = storedEvents; 
+    if (storedEvents == null){
+        storedEvents = [];
     }
-
     renderEvents(storedEvents); 
 }
 
