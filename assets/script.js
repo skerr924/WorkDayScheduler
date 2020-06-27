@@ -3,14 +3,14 @@ $(document).ready(function() {
 
 var timeNowDisplay; 
 var timeAndDateNow; 
-// var buttonHour; 
-var events = [];
-// var clockTime; 
+var events = [ ];
+var buttonHour; 
 
 
 updateTime();
-// alreadyPassed();
 compareTime();
+getStoredEvents();
+
 
 //function to continuously update the date and time 
 function updateTime () {
@@ -42,59 +42,66 @@ function compareTime () {
     })
 }
 
+//function pulls the text of the textarea in the buttons same table row 
 function saveEvent() {
     event.preventDefault();
-    buttonHour = $(this).attr('id');
+    buttonHour = $(this).attr('hour');
     var parent = $(this).parent();
     var grandparent = parent.parent();
-    var newEvent = grandparent.find("textarea")[0].value;
+    var newEntry = grandparent.find("textarea")[0].value;
+    var newEvent = {
+        time: buttonHour, 
+        event: newEntry, 
+    }
+    // newEvent.attr('id', buttonHour); 
+    console.log(newEvent);
     events.push(newEvent);
     storeEvent();
-    getStoredEvents();
   }
 
-// function storeEvent() {
-//     // Stringify and set each event item in localStorage to
-//     localStorage.setItem("events", JSON.stringify(events));
-//   }
+function storeEvent() {
+    // Stringify and set each event item in localStorage to
+    localStorage.setItem("events", JSON.stringify(events));
+}
 
-// //get stored events from local storage 
-// function getStoredEvents(){
-//     console.log("get stored events");
-//     var storedEvents = JSON.parse(localStorage.getItem("events")); 
-//     if (storedEvents !== null){
-//         events = storedEvents; 
-//     }
+//get stored events from local storage 
+function getStoredEvents(){
+    var storedEvents = JSON.parse(localStorage.getItem("events")); 
+    if (storedEvents !== null){
+        events = storedEvents; 
+    }
 
-//     renderEvents(); 
-// }
+    renderEvents(storedEvents); 
+}
 
-// function renderEvents(){
-//     console.log(events);
-// }
+function renderEvents(events){
+    for (i = 0; i < events.length; i++){
+       
+        var time = events[i].time; 
+        var text = events[i].event; 
+        $("."+time+"-time").val(text);
+        console.log(time, text)
+    }
+}
 
-// $(".saveBtn").on("click", saveEvent);
+function emptyEvent() {
+    var cancelledEvent = $(this).attr("hour")
+    $("."+cancelledEvent+"-time").val("");
+    removeFromStorage(cancelledEvent);
+}
 
-// });
-
-  
-//   //all event listeners below: 
-
-//   highScoreForm.addEventListener("submit", function(event) {
-//       event.preventDefault();
+function removeFromStorage(eventHour) {
+    var storedEvents = JSON.parse(localStorage.getItem("events"))
     
-//       var nameText = nameInput.value.trim() + " with a score of " + finalScore;
-    
-//       // Return from function early if submitted nameText is blank
-//       if (nameText === "") {
-//         return;
-//       }
-  
-//       // Add new nameText to names array, clear the input
-//       names.push(nameText);
-//       nameInput.value = "";
-    
-//       // Store updated todos in localStorage, re-render the list
-//       storeNames();
-//       renderHighScores();
-//   });
+    var index = storedEvents.findIndex(function(item){
+        return item.time === eventHour; 
+    }); 
+    storedEvents.splice(index, 1);
+    localStorage.setItem("events", JSON.stringify(storedEvents));
+}
+
+
+$(".remove").on("click", emptyEvent);
+$(".saveBtn").on("click", saveEvent);
+
+});
