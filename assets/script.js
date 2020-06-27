@@ -40,14 +40,14 @@ function compareTime () {
         }
     })
 }
-//NOT FUNCTIONAL 
-function saveEvent (){
-    buttonHour = $(this).attr("id");
+
+function saveEvent() {
+    buttonHour = $(this).attr('id');
     var parent = $(this).parent();
     var grandparent = parent.parent();
-    console.log(grandparent.find("input")); 
-}
+    console.log(grandparent.find("textarea")[0].value);
+  }
 
-$(".saveBtn").on("click", saveEvent);
+  $(".saveBtn").on("click", saveEvent);
 
 });
