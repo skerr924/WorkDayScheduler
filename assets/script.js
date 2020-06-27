@@ -4,7 +4,7 @@ $(document).ready(function() {
 var timeNowDisplay; 
 var timeAndDateNow; 
 var buttonHour; 
-var events [];
+var events =[];
 
 
 updateTime();
