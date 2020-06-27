@@ -59,6 +59,7 @@ function saveEvent() {
     storeEvent();
   }
 
+//adds new events to the local storage 
 function storeEvent() {
     // Stringify and set each event item in localStorage to
     localStorage.setItem("events", JSON.stringify(events));
@@ -74,22 +75,24 @@ function getStoredEvents(){
     renderEvents(storedEvents); 
 }
 
+//displays the stored events on the screen in their proper time frame 
 function renderEvents(events){
     for (i = 0; i < events.length; i++){
        
         var time = events[i].time; 
         var text = events[i].event; 
         $("."+time+"-time").val(text);
-        console.log(time, text)
     }
 }
 
+//empties the event textarea on the screen 
 function emptyEvent() {
     var cancelledEvent = $(this).attr("hour")
     $("."+cancelledEvent+"-time").val("");
     removeFromStorage(cancelledEvent);
 }
 
+//removes the deleted event from the local storage 
 function removeFromStorage(eventHour) {
     var storedEvents = JSON.parse(localStorage.getItem("events"))
     
