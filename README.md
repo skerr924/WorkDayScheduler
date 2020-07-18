@@ -11,7 +11,13 @@ If they wish to remove an event, for example, if it is cancelled, they simply cl
 The time blocks in the lefthand "Time" column will change colors depending on whether the event is upcoming for that day, is taking place at the moment, or has already occurred. 
 
 
-# Images: 
+# Images 
 Website home screen, with nothing yet added: <img src="assets/WorkDayScheduler_home_empty.png">
 
 Website with events added: <img src = "assets/WorkDayScheduler_filledin.png" >
+
+# Links
+
+GitHub repository: https://github.com/skerr924/WorkDayScheduler
+Deployed GitHub application: https://skerr924.github.io/WorkDayScheduler/
+
